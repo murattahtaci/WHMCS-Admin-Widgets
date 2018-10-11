@@ -1,7 +1,7 @@
 <?php
 /**
- * WHMCS Admin paneli için Döviz / Altýn kurlarý görüntüleme 
- * Murat Tahtacý
+ * WHMCS Admin paneli icin Döviz / Altin kurlari görüntüleme 
+ * Murat Tahtaci
  * 10.10.2018
  */
 add_hook('AdminHomeWidgets', 1, function() {
