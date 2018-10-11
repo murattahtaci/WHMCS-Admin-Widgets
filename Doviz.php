@@ -1,6 +1,6 @@
 <?php
 /**
- * WHMCS Admin paneli icin Dolar, Euro ve Altin kurlarını doviz.com üzerinden çeker. 
+ * WHMCS Admin paneli Dashboard alanı icin Dolar, Euro ve Altin kurlarını doviz.com üzerinden çeker. 
  * Murat Tahtaci
  * 10.10.2018
  */
