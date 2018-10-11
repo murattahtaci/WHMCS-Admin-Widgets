@@ -1,6 +1,6 @@
 <?php
 /**
- * WHMCS Admin paneli icin Döviz / Altin kurlari görüntüleme 
+ * WHMCS Admin paneli icin DÃ¶viz / Altin kurlari gÃ¶rÃ¼ntÃ¼leme 
  * Murat Tahtaci
  * 10.10.2018
  */
@@ -12,7 +12,7 @@ setlocale(LC_MONETARY, 'tr_TR');
 
 class DovizWidget extends \WHMCS\Module\AbstractWidget
 {
-    protected $title = 'Döviz Kurlarý';
+    protected $title = 'DÃ¶viz KurlarÄ±';
     protected $description = '';
     protected $weight = 40;
     protected $columns = 1;
@@ -51,37 +51,37 @@ return <<<EOF
     <div class="col-sm-6 bordered-right" style="border-right: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data color-green"><i class="fas fa-dollar-sign color-green"></i> <strong>{$data['usd_buying']}</strong></div>
-            <div class="note">  USD Alýþ</div>
+            <div class="note">  USD AlÄ±ÅŸ</div>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="item" style="padding: 13px 0;">
             <div class="data color-green"><i class="fas fa-dollar-sign color-green"></i> <strong>{$data['usd_selling']}</strong></div>
-            <div class="note">  USD Satýþ</div>
+            <div class="note">  USD SatÄ±ÅŸ</div>
         </div>
     </div>
     <div class="col-sm-6 bordered-right bordered-top" style="border-right: 1px solid #eee;    border-top: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data color-pink"><i class="fas fa-euro-sign color-pink"></i> <strong>{$data['euro_buying']}</strong></div>
-            <div class="note">  Euro Alýþ</div>
+            <div class="note">  Euro AlÄ±ÅŸ</div>
         </div>
     </div>
     <div class="col-sm-6 bordered-top" style="    border-top: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data color-pink"><i class="fas fa-euro-sign color-pink"></i> <strong>{$data['euro_selling']}</strong></div>
-            <div class="note">  Euro Satýþ</div>
+            <div class="note">  Euro SatÄ±ÅŸ</div>
         </div>
     </div>
 	<div class="col-sm-6 bordered-right bordered-top" style="border-right: 1px solid #eee;    border-top: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data"><i class="fas fa-burn"></i> {$data['altin_gram_satis']}</div>
-            <div class="note">  Gram Altýn Satýþ</div>
+            <div class="note">  Gram AltÄ±n SatÄ±ÅŸ</div>
         </div>
     </div>
     <div class="col-sm-6 bordered-top" style="    border-top: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data"><i class="fas fa-burn"></i> {$data['altin_ceyrek_satis']}</div>
-            <div class="note">  Çeyrek Altýn Satýþ</div>
+            <div class="note">  Ã‡eyrek AltÄ±n SatÄ±ÅŸ</div>
         </div>
     </div>
 	<style>
