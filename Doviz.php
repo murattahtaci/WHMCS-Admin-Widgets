@@ -1,8 +1,8 @@
 <?php
 /**
- * WHMCS Admin paneli Dashboard alanı icin Dolar, Euro ve Altin kurlarını doviz.com üzerinden çeker. 
- * Murat Tahtaci
- * 10.10.2018
+ * WHMCS Admin paneli için Döviz / Altın kurları listeleme 
+ * Geliştiren: Murat Tahtacı / Domainhizmetleri.com
+ * Güncelleme: 26.12.2018
  */
 add_hook('AdminHomeWidgets', 1, function() {
     return new DovizWidget();
@@ -20,34 +20,34 @@ class DovizWidget extends \WHMCS\Module\AbstractWidget
     protected $cacheExpiry = 3600;
     protected $requiredPermission = '';
 
-public function getData()
-{
-		$connect_web = file_get_contents('https://www.doviz.com/api/v1/currencies/all/latest');
-    		$json_doviz = json_decode($connect_web, true);
-		$usd_buying = money_format('%.4n',$json_doviz[0]['buying']);
-		$usd_selling = money_format('%.4n',$json_doviz[0]['selling']);
-		$euro_buying = money_format('%.4n',$json_doviz[1]['buying']);
-		$euro_selling = money_format('%.4n',$json_doviz[1]['selling']);
+    public function getData()
+    {
+		$connect_web_doviz = file_get_contents('https://api.canlidoviz.com/web/items?marketId=1&type=0');
+    	$json_doviz = json_decode($connect_web_doviz, true);
+		$usd_buying = money_format('%.4n',$json_doviz[0]['buyPrice']);
+		$usd_selling = money_format('%.4n',$json_doviz[0]['sellPrice']);
+		$euro_buying = money_format('%.4n',$json_doviz[1]['buyPrice']);
+		$euro_selling = money_format('%.4n',$json_doviz[1]['sellPrice']);
 		
-		$connect_web_altin = file_get_contents('https://www.doviz.com/api/v1/golds/all/latest');
-		$json = json_decode($connect_web_altin, true);
-		$altin_ceyrek_satis = money_format('%.4n',$json[0]['selling']);
-		$altin_gram_satis = money_format('%.4n',$json[5]['selling']);
+		$connect_web_altin = file_get_contents('https://api.canlidoviz.com/web/items?marketId=1&type=1');
+		$json_altin = json_decode($connect_web_altin, true);
+		$altin_ceyrek_satis = money_format('%.4n',$json_altin[0]['sellPrice']);
+		$altin_gram_satis = money_format('%.4n',$json_altin[4]['sellPrice']);
 		
 		return array(
-           		'usd_buying' => $usd_buying,
-            		'usd_selling' => $usd_selling,
+            'usd_buying' => $usd_buying,
+            'usd_selling' => $usd_selling,
 			'euro_buying' => $euro_buying,
 			'euro_selling' => $euro_selling,
 			'altin_ceyrek_satis' => $altin_ceyrek_satis,
 			'altin_gram_satis' => $altin_gram_satis,
-   		);
-}
+        );
+    }
 
-public function generateOutput($data)
-{
+    public function generateOutput($data)
+    {
 
-return <<<EOF
+        return <<<EOF
     <div class="col-sm-6 bordered-right" style="border-right: 1px solid #eee;">
         <div class="item" style="padding: 13px 0;">
             <div class="data color-green"><i class="fas fa-dollar-sign color-green"></i> <strong>{$data['usd_buying']}</strong></div>
