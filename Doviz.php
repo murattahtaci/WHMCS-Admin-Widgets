@@ -2,13 +2,14 @@
 /**
  * WHMCS Admin paneli için Döviz / Altın kurları listeleme 
  * Geliştiren: Murat Tahtacı / Domainhizmetleri.com
- * Güncelleme: 26.12.2018
+ * 03.09.2019
  */
 add_hook('AdminHomeWidgets', 1, function() {
     return new DovizWidget();
 });
 
 setlocale(LC_MONETARY, 'tr_TR');
+ini_set('default_socket_timeout', 3);
 
 class DovizWidget extends \WHMCS\Module\AbstractWidget
 {
@@ -22,17 +23,17 @@ class DovizWidget extends \WHMCS\Module\AbstractWidget
 
     public function getData()
     {
-		$connect_web_doviz = file_get_contents('https://api.canlidoviz.com/web/items?marketId=1&type=0');
+		$connect_web_doviz = file_get_contents('https://api.canlidoviz.com/items/current?marketId=0&code=USD&code=EUR');
     	$json_doviz = json_decode($connect_web_doviz, true);
-		$usd_buying = money_format('%.4n',$json_doviz[0]['buyPrice']);
-		$usd_selling = money_format('%.4n',$json_doviz[0]['sellPrice']);
-		$euro_buying = money_format('%.4n',$json_doviz[1]['buyPrice']);
-		$euro_selling = money_format('%.4n',$json_doviz[1]['sellPrice']);
+		$usd_buying = money_format('%.4n',$json_doviz[1]['data']['lastBuyPrice']);
+		$usd_selling = money_format('%.4n',$json_doviz[1]['data']['lastSellPrice']);
+		$euro_buying = money_format('%.4n',$json_doviz[0]['data']['lastBuyPrice']);
+		$euro_selling = money_format('%.4n',$json_doviz[0]['data']['lastSellPrice']);
 		
-		$connect_web_altin = file_get_contents('https://api.canlidoviz.com/web/items?marketId=1&type=1');
+		$connect_web_altin = file_get_contents('https://api.canlidoviz.com/items/latest-data?marketId=0&type=GOLD');
 		$json_altin = json_decode($connect_web_altin, true);
-		$altin_ceyrek_satis = money_format('%.4n',$json_altin[0]['sellPrice']);
-		$altin_gram_satis = money_format('%.4n',$json_altin[4]['sellPrice']);
+		$altin_ceyrek_satis = money_format('%.4n',$json_altin[0]['data']['lastSellPrice']);
+		$altin_gram_satis = money_format('%.4n',$json_altin[9]['data']['lastSellPrice']);
 		
 		return array(
             'usd_buying' => $usd_buying,
